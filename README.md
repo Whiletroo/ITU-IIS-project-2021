@@ -2,6 +2,11 @@
 __Topic:__ Charity Help Portal
 - [Project link](https://app-itu-iis-2021-web.azurewebsites.net)
 
+__Team Members:__
+- Prokofiev Oleksandr  (xproko40)
+- Krukhmalov Kostianty (xkrukh00)
+- Pimenov Danylo       (xpimen00)
+
 # Strategy
 
 Branch strategy
