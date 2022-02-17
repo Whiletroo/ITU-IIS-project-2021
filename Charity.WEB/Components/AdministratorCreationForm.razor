@@ -1,0 +1,79 @@
+﻿@namespace Charity.WEB
+@inherits Charity.WEB.Pages.PageBase
+
+<div class="row">
+    <div class="col">
+        <EditForm Model="ShelterAdmin" OnValidSubmit="CreateShelterAdmin">
+            <DataAnnotationsValidator/>
+            <div class="form-group row mb-2">
+                <label for="firstname" class="col-md-2 col-form-label">First name:</label>
+                <div class="col-md-10">
+                    <InputText id="firstname" class="form-control" @bind-Value="ShelterAdmin.FirstName"/>
+                    <ValidationMessage For="@(() => ShelterAdmin.FirstName)"/>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label for="lastname" class="col-md-2 col-form-label">Last name:</label>
+                <div class="col-md-10">
+                    <InputText id="lastname" class="form-control" @bind-Value="ShelterAdmin.LastName"/>
+                    <ValidationMessage For="@(() => ShelterAdmin.LastName)"/>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label for="email" class="col-md-2 col-form-label">Email:</label>
+                <div class="col-md-10">
+                    <InputText id="email" class="form-control" @bind-Value="ShelterAdmin.Email"/>
+                    <ValidationMessage For="@(() => ShelterAdmin.Email)"/>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label for="photourl" class="col-md-2 col-form-label">Photo URL:</label>
+                <div class="col-md-10">
+                    <InputText id="photourl" class="form-control" @bind-Value="ShelterAdmin.PhotoURL"/>
+                    <ValidationMessage For="@(() => ShelterAdmin.PhotoURL)"/>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label for="phonenumber" class="col-md-2 col-form-label">Phone number:</label>
+                <div class="col-md-10">
+                    <InputText id="phonenumber" class="form-control" @bind-Value="ShelterAdmin.Phone"/>
+                    <ValidationMessage For="@(() => ShelterAdmin.Phone)"/>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label for="password" class="col-md-2 col-form-label">Password:</label>
+                <div class="col-md-10">
+                    <InputText type="password" id="password" class="form-control" @bind-Value="ShelterAdmin.Password"/>
+                    <ValidationMessage For="@(() => ShelterAdmin.Password)"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="shelter" class="col-md-2 col-form-label">Append to shelter (only free are displayed):</label>
+                <div class="col-md-4">
+                    <InputSelect id="shelter" @bind-Value="SelectedShelterId" class="form-control">
+                        <option value="@Guid.Empty">None</option>
+                        @foreach (var shelter in ShelterList)
+                        {
+                            <option value="@shelter.Id">@shelter.Title</option>
+                        }
+
+                    </InputSelect>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-12 text-right">
+                    <button disabled="@CreateShelterAdminButtonDisabled" type="submit" class="btn btn-success">Create</button>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+    @if (ShowErrors)
+    {
+        <div class="alert alert-danger" role="alert">
+            @foreach (var error in Errors)
+            {
+                <p>@error</p>
+            }
+        </div>
+    }
+</div>

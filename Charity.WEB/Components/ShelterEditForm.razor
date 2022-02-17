@@ -1,0 +1,113 @@
+﻿<!-- Author xpimen00-->
+@namespace Charity.WEB
+@using Charity.Common.Models
+@inherits Charity.WEB.Pages.PageBase
+
+<EditForm Model="@Data">
+    <DataAnnotationsValidator/>
+    <div class="form-group">
+        <label class="w-100">
+            Title:
+            <InputText @bind-Value="@Data.Title" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Title)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="w-100">
+            Description :
+            <InputTextArea @bind-Value="@Data.Description" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Description)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="w-100">
+            Address :
+            <InputText @bind-Value="@Data.Address" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Address)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="w-100">
+            Logo URL:
+            <InputText @bind-Value="@Data.PhotoURL" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.PhotoURL)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-group">
+        <div style="max-height: 18em; overflow: auto">
+            <table class="table table-responsive">
+                <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Goal</th>
+                    <th scope="col">State</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                @if (Donations.Count != 0)
+                {
+                    <tbody>
+                    @foreach (DonationListModel donation in Donations)
+                    {
+                        <tr>
+                            <td style="cursor: pointer" onclick="location.href = '@($"/donations/{donation.Id}")'">@donation.Title</td>
+                            <td style="cursor: pointer" onclick="location.href = '@($"/donations/{donation.Id}")'">@donation.Goal</td>
+                            <td style="cursor: pointer" onclick="location.href = '@($"/donations/{donation.Id}")'">@donation.State</td>
+                        </tr>
+                    }
+                    </tbody>
+                }
+            </table>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div style="max-height: 18em; overflow: auto">
+            <table class="table table-responsive">
+                <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Date</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                @if (Volunteerings.Count != 0)
+                {
+                    <tbody>
+                    @foreach (VolunteeringListModel volunteering in Volunteerings)
+                    {
+                        <tr>
+                            <td style="cursor: pointer" onclick="location.href = '@($"/volunteerings/{volunteering.Id}")'">@volunteering.Title</td>
+                            <td style="cursor: pointer" onclick="location.href = '@($"/volunteerings/{volunteering.Id}")'">@volunteering.DateTime</td>
+                        </tr>
+                    }
+                    </tbody>
+                }
+            </table>
+        </div>
+    </div>
+    
+    @if (Id != Guid.Empty)
+    {
+        <button type="submit" class="btn btn-success" @onclick="@Update">
+            Update
+        </button>
+        <button @onclick="@Delete" class="btn btn-danger ml-1">
+            Delete
+        </button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-success" @onclick="@Create">
+            Create
+        </button>
+    }
+</EditForm>

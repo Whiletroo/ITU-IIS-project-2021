@@ -1,0 +1,19 @@
+﻿<!-- Author xkrukh00-->
+@page "/createadmin"
+@namespace Charity.WEB.Pages
+@inherits PageBase
+<CascadingAuthenticationState>
+    <AuthorizeView Roles="Administrator">
+        <Authorized>
+            <div class="container">
+                <h1 class="mb-4">Create Administrator</h1>
+                <AdministratorCreationForm OnModification="NavigateBack"/>
+            </div>
+        </Authorized>
+    </AuthorizeView>
+    <AuthorizeView>
+        <NotAuthorized>
+            You are not an Administrator
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>

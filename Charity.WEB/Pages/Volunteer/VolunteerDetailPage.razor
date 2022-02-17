@@ -1,0 +1,108 @@
+﻿@page "/volunteers/{Id:guid}"
+@namespace Charity.WEB.Pages
+@using Charity.Common.Models
+@inherits PageBase
+@layout Charity.WEB.Shared.MainLayout
+
+@if (Volunteer != null)
+{
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-md"></div>
+            <div class="col-md-4 text-center">
+                <img src="@Volunteer.PhotoUrl" alt="@Volunteer.PhotoUrl logo" style="height: 12em"/>
+            </div>
+            <div class="col-md-4 text-start">
+                <h2 style="margin-top: 2em">
+                    @Volunteer.FirstName @Volunteer.LastName
+                </h2>
+            </div>
+            <div class="col-md"></div>
+        </div>
+        <div class="row my-5">
+            <div class="col"></div>
+            <div class="col-md-2 text-center">
+                <label>Phone number :</label>
+                <br/>
+                <b>@Volunteer.Phone</b>
+            </div>
+            <div class="col-md-2 text-center">
+                <label>Email :</label> 
+                <br/>
+                <b>@Volunteer.Email</b>
+            </div>
+            <div class="col-md-2 text-center">
+                <label>Role :</label>
+                <br/>
+                <b>@Volunteer.Role</b>
+            </div>
+            <div class="col"></div>
+        </div>
+        <h3 class="mt-5">Donations :</h3>
+        <div style="max-height: 18em; overflow: auto">
+            <table class="table table-responsive">
+                <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Sum</th>
+                    <th scope="col" style="width:1%;white-space:nowrap;border-radius: 0 10px 0 0;"></th>
+                </tr>
+                </thead>
+                @if (Volunteer.Transactions!.Count != 0)
+                {
+                    <tbody>
+                    @foreach (var transaction in Volunteer.Transactions)
+                    {
+                        <tr>
+                            <td>@transaction.DateTime</td>
+                            <td>@transaction.DonationTitle</td>
+                            <td>@transaction.Sum</td>
+                            <td><NavLink href="@("/donations/"+transaction.DonationId)" class="btn btn-outline-info">Page</NavLink></td>
+                        </tr>
+                    }
+                    </tbody>
+                }
+            </table>
+        </div>
+        <h3 class="mt-5">Voluntary jobs :</h3>
+        <div style="max-height: 18em; overflow: auto">
+            <table class="table table-responsive">
+                <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Date</th>
+                    <th scope="col" style="width:1%;white-space:nowrap;border-radius: 0 10px 0 0;"></th>
+                </tr>
+                </thead>
+                @if (Volunteer.Enrollments.Count != 0)
+                {
+                
+                    <tbody>
+                    @foreach (var enrollment in Volunteer.Enrollments)
+                    {
+                        <tr>
+                            <td>@enrollment.VolunteeringTitle</td>
+                            <td>@enrollment.DateTime</td>
+                            <td><NavLink href="@("/volunteerings/"+enrollment.VolunteeringId)" class="btn btn-outline-info">Page</NavLink></td>
+                        </tr>
+                    }
+                    </tbody>
+     
+                }
+            </table>
+        </div>
+        @if (authState.User.Identity.IsAuthenticated)
+        {
+            @if (authState.User.IsInRole("Volunteer") && authState.User.Identity.Name == Volunteer.Email)
+            {
+                <div class="text-start text-lg-right">
+
+                    <NavLink href="@("/volunteers/edit/"+Volunteer.Id)" class="btn btn-info">
+                        Edit
+                    </NavLink>
+                </div>
+            }
+        }
+    </div>
+}

@@ -1,0 +1,9 @@
+﻿@page "/shelters/edit/{Id:guid}"
+@page "/shelters/create"
+@namespace Charity.WEB.Pages
+@inherits PageBase
+
+<div class="container">
+    <h1 class="mb-4">@(Id == Guid.Empty ? "Create new shelter" : "Edit shelter")</h1>
+    <ShelterEditForm id="@Id" OnModification="NavigateBack"/>
+</div>

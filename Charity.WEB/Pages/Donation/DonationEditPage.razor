@@ -1,0 +1,10 @@
+﻿<!-- Author xpimen00-->
+@page "/donations/edit/{Id:guid}"
+@page "/donations/create"
+@namespace Charity.WEB.Pages
+@inherits PageBase
+
+<div class="container">
+    <h1 class="mb-4">@(Id == Guid.Empty ? "Create new donation" : "Edit donation")</h1>
+    <DonationEditForm id="@Id" OnModification="NavigateBack"/>
+</div>

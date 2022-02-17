@@ -1,0 +1,63 @@
+﻿@page "/donations"
+@namespace Charity.WEB.Pages
+<!-- Author xpimen00-->
+
+<section class="bg-primary text-light p-2 text-center">
+    <div class="d-md-flex align-items-center">
+        <div class="input-group mb-1">
+            <input type="text" class="form-control" @bind-value="@SearchString" placeholder="Find donation...">
+            <button class="btn btn-outline-secondary btn-light" @onclick="OnSearch">Search</button>
+        </div>
+    </div>
+</section>
+
+<div class="container" style="margin-top: 1em">
+    <div class="bg-sec h-100 rounded">
+        @if (DonationList.Count != 0)
+        {
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 g-4 text-center pt-3 justify-content-between">
+                @foreach (var Donation in DonationList)
+                {
+                    <div class="col m-auto">
+                        <NavLink href="@("/donations/"+Donation.Id)" style="color:black;text-decoration: none">
+                            <div class="card" style="width: 19rem; height: 24rem; margin: auto; margin-bottom: 1em">
+                                <div style="max-height: 180px; max-width: 19rem; overflow: hidden">
+                                    <img src="@Donation.PhotoURL" class="card-img-top" >
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">@Donation.Title</h5>
+                                    <div class="overflow-hidden" style="height: 77px">
+                                        @Donation.Description
+                                    </div>
+                                
+                                    <div class="mt-auto">
+                                        <div class="div pt-2">
+
+                                            @if (@Donation.State >= @Donation.Goal)
+                                            {
+                                                <div class="h3 text-success">Complete</div>
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="cursor: pointer; width: @GetPercents(Donation)%" onclick="location.href = '@($"/donations/{Donation.Id}")'">@(Donation.State + "/" + Donation.Goal)</div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="cursor: pointer; width: @GetPercents(Donation)%" onclick="location.href = '@($"/donations/{Donation.Id}")'"></div>
+                                                    <div class="text-center">@(Donation.State + "/" + Donation.Goal)</div>
+                                                </div>
+                                            }
+                                        </div>
+                                        <NavLink href="@("/donations/"+Donation.Id)" class="card-link btn btn-primary text-center" style="width: 100%; line-height: 11px">
+                                            Donate
+                                        </NavLink>
+                                    </div>
+                                </div>
+                            </div>
+                        </NavLink>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

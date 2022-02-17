@@ -1,0 +1,75 @@
+﻿@*
+  File:   DonationDetailPage.razor
+  Author: Oleksandr Prokofiev (xproko40)
+*@
+
+@page "/donations/{Id:guid}"
+@namespace Charity.WEB.Pages
+@inherits PageBase
+
+@if (Donation != null)
+{
+    <div class="container" style="margin-block: 5em">
+        <div class="d-flex">
+            <div class="flex-shrink-0">
+                <img src="@Donation.PhotoURL" class="img-fluid rounded" style="max-width: 20em">
+            </div>
+            <div class="flex-grow-1 ms-3">
+                <div class="form-group">
+                    <h1 class="mb-4">@Donation.Title</h1>
+                    @if (Donation.ShelterId != null)
+                    {
+                        <a href= "@($"/shelters/{Donation.ShelterId}")" class="link-info h3" >@Donation.ShelterTitle</a>
+                    }
+                    <div class="text-primary" style="margin-top: 0.5em">@("End of gathering:") <br> @Donation.DateTime</div>
+                    <div class="mb-3; shadow-sm" style="margin: 1em">@Donation.Description</div>
+                    @if (@Donation.State >= @Donation.Goal)
+                    {
+                        <div class="h3 text-success text-center">Complete</div>
+                        <div class="progress"> 
+                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="@Donation.State" aria-valuemin="0" aria-valuemax="@Donation.Goal" style="cursor: pointer; width: @GetPercents(Donation)% ">@(Donation.State + "/" + Donation.Goal)</div>  
+                        </div>
+
+                    } else {
+                        <div class="progress"> 
+                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="@Donation.State" aria-valuemin="0" aria-valuemax="@Donation.Goal" style="cursor: pointer; width: @GetPercents(Donation)% "></div>
+                            <div class="text-center">@(Donation.State + "/" + Donation.Goal)</div>
+                        </div>
+                    }
+                    <div class="row mt-3">
+                        <EditForm Model="Amount">
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <InputNumber @bind-Value="Amount" class="form-control"></InputNumber>
+                                <button class="btn btn-outline-secondary" type="submit" @onclick="CreateTransaction" id="button-addon2" style="color: #ffffff;background-color: #008966;border-width: 2px;border-color: rgba(22, 22, 22, 0.54);">
+                                    Donate
+                                </button>
+                            </div>
+                        </EditForm>
+                        @if (showAuthError)
+                        {
+                            <div class="alert alert-danger mt-2" role="alert">
+                                <p>You are not authorized or you are not volunteer</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (authState.User.Identity.IsAuthenticated)
+    {
+        @if (authState.User.IsInRole("ShelterAdministrator") && authState.User.Identity.Name == ShelterAdminEmail)
+        {
+            <section class="pt-5">
+                <div class="container">
+                    <div class="text-start text-end">
+                        <NavLink href="@("/donations/edit/"+Donation.Id)" class="btn btn-info"style="white-space:nowrap;color:black;text-decoration:none">
+                            Edit    
+                        </NavLink>
+                    </div>
+                </div>
+            </section>
+        }
+    }
+}

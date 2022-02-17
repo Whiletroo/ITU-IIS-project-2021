@@ -1,0 +1,86 @@
+﻿@*!--Author xkrukh00*@
+@namespace Charity.WEB
+@using Charity.Common.Models
+@inherits Charity.WEB.Pages.PageBase
+
+<EditForm Model="@Data">
+    <DataAnnotationsValidator/>
+    <div class="form-group">
+        <label class="w-100">
+            First Name :
+            <InputText @bind-Value="@Data.FirstName" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.FirstName)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="w-100">
+            Last Name :
+            <InputText @bind-Value="@Data.LastName" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.LastName)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="w-100">
+            Email :
+            <InputText @bind-Value="@Data.Email" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Email)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="w-100">
+            Password :
+            <InputText @bind-Value="@Data.Password" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Password)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="w-100">
+            Phone :
+            <InputText @bind-Value="@Data.Phone" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Phone)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="w-100">
+            Role :
+            <InputText @bind-Value="@Data.Role" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Role)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="w-100">
+            Photo url :
+            <InputText @bind-Value="@Data.PhotoUrl" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.PhotoUrl)"/>
+            </small>
+        </label>
+    </div>
+    @if (Id != Guid.Empty)
+    {
+        <button type="submit" class="btn btn-success" @onclick="@Update">
+            Update
+        </button>
+        <button @onclick="@Delete" class="btn btn-danger ml-1">
+            Delete
+        </button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-success" @onclick="@Create">
+            Create
+        </button>
+    }
+</EditForm>

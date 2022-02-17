@@ -1,0 +1,83 @@
+﻿@*
+  File:   VolunteeringDetailPage.razor
+  Author: Oleksandr Prokofiev (xproko40)
+*@
+
+@page "/volunteerings/{Id:guid}"
+@namespace Charity.WEB.Pages
+@inject IModalService modal
+
+@if (Volunteering != null)
+{
+    <div class="container" style="margin-block: 5em">
+        <div class="d-flex">
+            <div class="flex-shrink-0">
+                <img src="@Volunteering.PhotoURL" class="img-fluid rounded" style="max-width: 20em">
+            </div>
+            <div class="flex-grow-1 ms-3">
+                <div class="form-group">
+                    <h1 class="mb-4">@Volunteering.Title</h1>
+                    @if (Volunteering.ShelterId != null)
+                    {
+                        <a href= "@($"/shelters/{Volunteering.ShelterId}")" class="link-info h3" >@Volunteering.ShelterTitle</a>
+                    }
+                    <div class="text-primary" style="margin-top: 0.5em">@("Date of volunteering:") <br> @Volunteering.DateTime</div>
+                    <div class="mb-3; shadow-sm" style="margin-top: 1em">@Volunteering.Description</div>
+                    @if (@Volunteering.Enrollments.Count == @Volunteering.RequiredCount)
+                    {
+                        <div class="progress" style="margin: 1em">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: @GetPercents(Volunteering)%" aria-valuenow="@Volunteering.Enrollments.Count" aria-valuemin="0" aria-valuemax="@Volunteering.RequiredCount">@("Required people: " + Volunteering.Enrollments.Count + "/" + Volunteering.RequiredCount)</div>
+                        </div>
+                    }
+                    else if(@Volunteering.Enrollments.Count == 0.0)
+                    {
+                        <div class="progress" style="margin: 1em">
+                            <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="@Volunteering.Enrollments.Count" aria-valuemin="0" aria-valuemax="@Volunteering.RequiredCount"></div>
+                            <div class="text-center">@("Required people: " + Volunteering.Enrollments.Count + "/" + Volunteering.RequiredCount)</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="progress" style="margin: 1em">
+                            <div class="progress-bar" role="progressbar" style="width: @GetPercents(Volunteering)%" aria-valuenow="@Volunteering.Enrollments.Count" aria-valuemin="0" aria-valuemax="@Volunteering.RequiredCount"></div>
+                            <div class="text-center">@("Required people: " + Volunteering.Enrollments.Count + "/" + Volunteering.RequiredCount)</div>
+                        </div>
+                    }
+                    <div class="d-grid">
+                        <CascadingAuthenticationState>
+                            <AuthorizeView Roles="Volunteer">
+                                <Authorized>
+                                    <button class="btn btn-primary" @onclick="Enroll" type="button">Apply</button>
+                                    @if (showAuthError)
+                                    {
+                                        <div class="alert alert-danger mt-2" role="alert">
+                                            <p>@error</p>
+                                        </div>
+                                    }
+                                </Authorized>
+                                <NotAuthorized>
+                                    <div class="alert alert-secondary" role="alert">
+                                       Sign up to enroll!
+                                    </div>
+                                </NotAuthorized>
+                            </AuthorizeView>
+                        </CascadingAuthenticationState>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (authState.User.Identity.IsAuthenticated)
+    {
+        @if (authState.User.IsInRole("ShelterAdministrator") && authState.User.Identity.Name == ShelterAdminEmail)
+        {
+            <section class="pt-5">
+                <div class="container">
+                    <div class="text-start text-end">
+                        <button @onclick="@(() => ShowEditVolunteers(Volunteering.Id))" class="btn btn-info">Edit</button>
+                    </div>
+                </div>
+            </section>
+        }
+    }
+}

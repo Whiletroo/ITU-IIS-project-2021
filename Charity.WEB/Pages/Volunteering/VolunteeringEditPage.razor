@@ -1,0 +1,13 @@
+﻿@*
+  File:   VolunteeringEditPage.razor
+  Author: Oleksandr Prokofiev (xproko40)
+*@
+
+@page "/volunteerings/edit/{Id:guid}"
+@page "/volunteerings/create"
+@namespace Charity.WEB.Pages
+@inherits PageBase
+<div class="container">
+    <h1 class="mb-4">@(Id == Guid.Empty ? "Create new volunteering" : "Edit volunteering")</h1>
+    <VolunteeringEditForm id="@Id" OnModification="NavigateBack"/>
+</div>

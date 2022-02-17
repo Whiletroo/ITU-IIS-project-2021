@@ -1,0 +1,92 @@
+﻿<!-- Author xpimen00-->
+@namespace Charity.WEB
+@using Charity.Common.Models
+@inherits Charity.WEB.Pages.PageBase
+
+<EditForm Model="@Data">
+    <DataAnnotationsValidator/>
+    <div class="form-group">
+        <label class="w-100">
+            Donation Title :
+            <InputText @bind-Value="@Data.Title" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Title)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="w-100">
+            Description :
+            <InputTextArea @bind-Value="@Data.Description" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Description)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-group row" style="margin: 0.5em">
+        <label class="col-sm-2 col-form-label" for="date">
+            End of gathering date:
+        </label>
+        <div class="col-md-4">
+            <input type="date" id="date" class="form-control" placeholder="Select date" @bind-value="@SelectedDate">
+        </div>
+    </div>
+    <div class="form-group row" style="margin: 0.5em">
+        <label class="col-sm-2 col-form-label" for="time">
+            End of gathering time:
+        </label>
+        <div class="col-md-4">
+            <input type="time" id="time" class="form-control" placeholder="Select time" @bind-value="@SelectedTime">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="w-100">
+            Goal :
+            <InputNumber @bind-Value="@Data.Goal" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.Goal)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-group">
+        <label class="w-100">
+            PhotoURL :
+            <InputText @bind-Value="@Data.PhotoURL" class="form-control"/>
+            <small class="form-text text-danger">
+                <ValidationMessage For="@(() => Data.PhotoURL)"/>
+            </small>
+        </label>
+    </div>
+    <div class="form-groub" style="margin-bottom: 1em">
+        <label class="w-100">
+            Shelter :
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <InputSelect @bind-Value=@Data.ShelterId class="form-control" >
+                        @foreach (var shelter in ShelterList)
+                        {
+                            <option value="@shelter.Id">@shelter.Title</option>
+                        }
+                    </InputSelect>
+                </div>
+            </div>
+        </label>
+    </div>
+     
+
+    @if (Id != Guid.Empty)
+    {
+        <button type="submit" class="btn btn-success" @onclick="@Update">
+            Update
+        </button>
+        <button @onclick="@Delete" class="btn btn-danger ml-1">
+            Delete
+        </button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-success" @onclick="@Create">
+            Create
+        </button>
+    }
+</EditForm>

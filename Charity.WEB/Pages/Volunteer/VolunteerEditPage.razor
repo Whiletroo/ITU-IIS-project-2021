@@ -1,0 +1,9 @@
+﻿@page "/volunteers/edit/{Id:guid}"
+@page "/volunteers/create"
+@namespace Charity.WEB.Pages
+@inherits PageBase
+
+<div class="container">
+    <h1 class="mb-4">@(Id == Guid.Empty ? "Create new user" : "Edit user")</h1>
+    <VolunteerEditForm id="@Id" OnModification="NavigateBack"/>
+</div>

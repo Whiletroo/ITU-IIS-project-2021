@@ -1,0 +1,102 @@
+﻿<!-- Author xkrukh00-->
+@namespace Charity.WEB.Shared
+@inherits LayoutComponentBase
+@using Majorsoft.Blazor.Components.Notifications
+
+<div class="page" style="flex-direction: column; height: 100vh">
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="images/oc-logo-white.svg" asp-append-version="true" alt="One charity logo" height="25">
+            </a>
+            <button class="navbar-toggler" @onclick="ToggleNavMenu" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="@NavMenuCssClass navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto col-9">
+                    <li class="nav-item active">
+                        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                            Home
+                        </NavLink>
+                    </li>
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="/shelters">
+                            Shelters
+                        </NavLink>
+                    </li>
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="/volunteerings">
+                            Voluntary Work
+                        </NavLink>
+                    </li>
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="/donations">
+                            Finance help
+                        </NavLink>
+                    </li>
+                </ul>
+                <div class="col-3 text-start text-lg-end">
+                    <CascadingAuthenticationState>
+                        <AuthorizeView Roles="Administrator">
+                            <Authorized>
+                                <button type="button" @onclick="GoToCreateAdminPage" class="btn btn-outline-light mb-2 mb-md-0">Create Administrator</button>
+                                <button type="button" @onclick="Logout" class="btn btn-outline-light mb-2 mb-md-0">Logout</button>
+                            </Authorized>
+                        </AuthorizeView>
+                    </CascadingAuthenticationState>
+                    <CascadingAuthenticationState>
+                        <AuthorizeView Roles="Volunteer, ShelterAdministrator">
+                            <Authorized>
+                                <button type="button" @onclick="GoToUserProfile" class="btn btn-outline-info mb-2 mb-md-0">Profile</button>
+                                <button type="button" @onclick="Logout" class="btn btn-outline-light mb-2 mb-md-0">Logout</button>
+                            </Authorized>
+                        </AuthorizeView>
+                    </CascadingAuthenticationState>
+                    <CascadingAuthenticationState>
+                        <AuthorizeView>
+                            <NotAuthorized>
+                                <button type="button" @onclick="GoToLoginPage" class="btn btn-outline-light mb-2 mb-md-0">Login</button>
+                                <button type="button" @onclick="GoToRegistrationPage" class="btn btn-outline-info">Sign-up</button>
+                            </NotAuthorized>
+                        </AuthorizeView>
+                    </CascadingAuthenticationState>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main style="padding-top: 56px">
+        <div class="content p-0">
+            @Body
+        </div>
+    </main>
+    
+    <section class="pt-5">
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top  text-white">
+            <p class="col-md-4 mb-0 text-muted ">&copy; 2021 One charity, Inc</p>
+
+                <ul class="nav justify-content-end ">
+                <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+                <li class="nav-item"><a href="/shelters" class="nav-link px-2 text-muted">Shelters</a></li>
+                <li class="nav-item"><a href="/volunteerings" class="nav-link px-2 text-muted">Voluntary Work</a></li>
+                <li class="nav-item"><a href="/donations" class="nav-link px-2 text-muted">Finance help</a></li>
+            </ul>
+            </footer>
+        </div>
+    </section>
+</div>
+<ToastContainer/>
+@code
+{
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

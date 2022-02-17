@@ -1,0 +1,166 @@
+﻿<!-- Author xpimen00-->
+@page "/shelters/{Id:guid}"
+@namespace Charity.WEB.Pages
+@using Charity.Common.Models
+@inherits PageBase
+@layout Charity.WEB.Shared.ListLayout
+@inject IModalService modal
+
+@if (Shelter != null)
+{
+    <div class="container">
+
+        
+    <div class="d-flex bd-highlight mb-3 pt-3">
+
+        <div class="align-middle text-center">
+             <img style=" max-height: 350px; max-width: 350px; " src="@Shelter.PhotoURL" />
+        </div> 
+
+      <div class="ps-5"  >
+            <div class="card"  >
+                <div class="card-body">
+                    <h4 class="card-title text-center">@Shelter.Title</h4>
+                    <div class="lict-group lict-grup-flush lead ">
+                    <p class="card-text text-start">@Shelter.Description</p>
+                    </div>    
+                </div>
+            </div>
+        </div>
+
+      </div>
+    
+    </div>
+        
+    <section class="pt-5">
+        <div class="container">  
+
+            <h3 class="mt-5">Donations :</h3>
+            <div style="max-height: 18em; overflow: auto">
+                <table class="table table-responsive">
+                    <thead>
+                    <tr>
+                        <th scope="col">Donation Title</th>
+                        <th scope="col">Short Discription</th>
+                        <th scope="col">State</th>
+                        <th scope="col" style="width:1%;white-space:nowrap;border-radius: 0 10px 0 0;"></th>
+                    </tr>
+                    </thead>
+                    @if (Shelter.Donations!.Count != 0)
+                    {
+                
+                        <tbody>
+                        @foreach (DonationListModel donation in Shelter.Donations)
+                        {
+                            <tr>
+                                <td>@donation.Title</td>
+                                <td>@donation.Description</td>
+                                @if (@donation.Goal == @donation.State)
+                                {
+                                    <div class="text-success fw-bold">
+                                        <td>Complete</td> 
+                                    </div>
+
+                                } else {
+                                    <td>@donation.State/@donation.Goal</td>  
+                                }
+                                <td><NavLink href="@("/donations/"+donation.Id)" class="btn btn-outline-info">Details</NavLink></td>
+                            </tr>
+                        }
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+        
+        @if (authState.User.Identity.IsAuthenticated)
+        {
+            @if (authState.User.IsInRole("ShelterAdministrator") && authState.User.Identity.Name == Shelter.ShelterAdminEmail)
+            {
+                <div class="container">
+                    <div class="text-start text-end">
+                        <NavLink href="/donations/create" class="btn btn-success">Create new</NavLink>
+                    </div>
+                </div>
+            }
+        }
+    </section>
+
+    <div class="container">
+        <h3 class="mt-5">Voluntary jobs :</h3>
+        <div style="max-height: 18em; overflow: auto">
+            <table class="table table-responsive">
+                <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Discription</th>
+                    <th scope="col" style="width:1%;white-space:nowrap;border-radius: 0 10px 0 0;"></th>
+                </tr>
+                </thead>
+                @if (Shelter.Volunteerings.Count != 0)
+                {
+                
+                    <tbody>
+                    @foreach (VolunteeringListModel volunteering in Shelter.Volunteerings)
+                    {
+                        <tr>
+                            <td>@volunteering.Title</td>
+                            <td>@volunteering.DateTime</td>
+                            <td>@volunteering.Description</td>
+                            <td><NavLink href="@("/volunteerings/"+volunteering.Id)" class="btn btn-outline-info">Details</NavLink></td>
+                        </tr>
+                    }
+                    </tbody>
+     
+                }
+            </table>
+        </div>
+        @if (authState.User.Identity.IsAuthenticated)
+        {
+            @if (authState.User.IsInRole("ShelterAdministrator") && authState.User.Identity.Name == Shelter.ShelterAdminEmail)
+            {
+                <div class="container">
+                    <div class="text-start text-end">
+                        <NavLink href="/volunteerings/create" class="btn btn-success">Create new</NavLink>
+                    </div>
+                </div>
+            }
+        }
+
+    <section class="pt-5 ">
+        <div class="container">
+            <div class="row g-2">
+                <div class="col-md pe-4">
+                   <h2 class="text-center bd-4">Contact info</h2>
+                    <div class="list-group list-group-flush lead">
+                               
+                        <p > <div class="fw-bold">Main Location:</div> @Shelter.Address </p> 
+                        <p > <div class="fw-bold">Phone:</div> <a href="tel:@Shelter.ShelterAdminPhone">@Shelter.ShelterAdminPhone</a> </p>
+                        <p > <div class="fw-bold">Email:</div> <a href="mailto: @Shelter.ShelterAdminEmail">@Shelter.ShelterAdminEmail</a> </p>
+                        
+                    </div>
+                </div>
+                <div class="col-md pe-5">
+                <div class="dt-5" > 
+                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4018.5575700222103!2d16.597817415821904!3d49.22498281153448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471294099dc06bbb%3A0xbfcf161b01a48b0d!2z0KTQsNC60YPQu9GM0YLQtdGCINCY0L3RhNC-0YDQvNCw0YbQuNC-0L3QvdGL0YUg0KLQtdGF0L3QvtC70L7Qs9C40LksINCi0LXRhdC90LjRh9C10YHQutC40Lkg0KPQvdC40LLQtdGA0YHQuNGC0LXRgiDQkdGA0L3Qvg!5e0!3m2!1sru!2scz!4v1638550765147!5m2!1sru!2scz" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+            </div>
+        </div>
+        </section>
+            @if (authState.User.Identity.IsAuthenticated)
+            {
+                @if (authState.User.IsInRole("ShelterAdministrator") && authState.User.Identity.Name == Shelter.ShelterAdminEmail)
+                {
+                    <section class="pt-5">
+                        <div class="container">
+                            <div class="text-end">
+                                <NavLink href="@("/shelters/edit/"+Shelter.Id)" class="btn btn-info">Edit</NavLink>
+                            </div>
+                        </div>
+                    </section>
+                }
+            }
+        </div>
+}

@@ -1,0 +1,55 @@
+﻿@page "/volunteers"
+@namespace Charity.WEB.Pages
+@inherits PageBase
+@layout Charity.WEB.Shared.ListLayout
+
+<div class="container">
+    <h1 class="mb-4">Volunteers</h1>
+    <div class="col-md">
+        <div class="bg-sec h-100 rounded">
+            @if (VolunteerList.Count != 0)
+            {
+                <table class="table border table-striped">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="row" style="width: 1%; white-space: nowrap;"></th>
+                        <th scope="row">First name</th>
+                        <th scope="row">Last name</th>
+                        <th scope="row">Email</th>
+                        <th scope="row" style="width: 1%; white-space: nowrap;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var volunteer in VolunteerList)
+                    {
+                        <tr>
+                            <td style="vertical-align: middle; cursor: pointer;" onclick="location.href = '@($"/volunteers/{volunteer.Id}")'">
+                                <img src="@volunteer.PhotoUrl" alt="volunteer photo" style="height: 3em" class="rounded"/>
+                            </td>
+                            <td style="vertical-align: middle; cursor: pointer;" onclick="location.href = '@($"/volunteers/{volunteer.Id}")'">
+                                <span>@volunteer.FirstName</span>
+                            </td>
+                            <td style="vertical-align: middle; cursor: pointer;" onclick="location.href = '@($"/volunteers/{volunteer.Id}")'">
+                                <span>@volunteer.LastName</span>
+                            </td>
+                            <td style="vertical-align: middle; cursor: pointer;" onclick="location.href = '@($"/volunteers/{volunteer.Id}")'">
+                                <span>@volunteer.Email</span>
+                            </td>
+                            <td style="vertical-align: middle;">
+                                <button class="btn btn-info" style="" onclick="location.href = '@($"/volunteers/edit/{volunteer.Id}")'">
+                                    Edit
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+    <div class="col-md">
+        <button class="btn btn-success" onclick="location.href = '@($"/volunteers/create")'">
+            Create new volunteer
+        </button>
+    </div>
+</div>
