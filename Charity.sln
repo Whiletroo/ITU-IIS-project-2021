@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Charity.DAL", "Charity.DAL\Charity.DAL.csproj", "{7D0D1775-AB71-45B3-820C-FF4472D22129}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Charity.DAL.Tests", "Charity.DAL.Tests\Charity.DAL.Tests.csproj", "{CF34AC04-9EC7-4CEA-873F-6FB66D95C511}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Charity.API", "Charity.API\Charity.API.csproj", "{DF810F5E-5040-4E1C-8589-8896EA2944BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Charity.API.Tests", "Charity.API.Tests\Charity.API.Tests.csproj", "{C3458E07-7176-41F9-8E96-7F1C3F967686}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Charity.WEB", "Charity.WEB\Charity.WEB.csproj", "{4615BA2D-F992-4FAE-B2ED-F3E0DAA4A6A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Charity.Common.Models", "Charity.Common.Models\Charity.Common.Models.csproj", "{8EC4784F-A608-4387-87B5-4F71D4CC3D95}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Charity.WEB.BL", "Charity.WEB.BL\Charity.WEB.BL.csproj", "{139DB4F8-B19D-42C1-A106-0CFF6D2BC9B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D0D1775-AB71-45B3-820C-FF4472D22129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D0D1775-AB71-45B3-820C-FF4472D22129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D0D1775-AB71-45B3-820C-FF4472D22129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D0D1775-AB71-45B3-820C-FF4472D22129}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF34AC04-9EC7-4CEA-873F-6FB66D95C511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF34AC04-9EC7-4CEA-873F-6FB66D95C511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF34AC04-9EC7-4CEA-873F-6FB66D95C511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF34AC04-9EC7-4CEA-873F-6FB66D95C511}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF810F5E-5040-4E1C-8589-8896EA2944BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF810F5E-5040-4E1C-8589-8896EA2944BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF810F5E-5040-4E1C-8589-8896EA2944BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF810F5E-5040-4E1C-8589-8896EA2944BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3458E07-7176-41F9-8E96-7F1C3F967686}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3458E07-7176-41F9-8E96-7F1C3F967686}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3458E07-7176-41F9-8E96-7F1C3F967686}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3458E07-7176-41F9-8E96-7F1C3F967686}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4615BA2D-F992-4FAE-B2ED-F3E0DAA4A6A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4615BA2D-F992-4FAE-B2ED-F3E0DAA4A6A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4615BA2D-F992-4FAE-B2ED-F3E0DAA4A6A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4615BA2D-F992-4FAE-B2ED-F3E0DAA4A6A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EC4784F-A608-4387-87B5-4F71D4CC3D95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EC4784F-A608-4387-87B5-4F71D4CC3D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EC4784F-A608-4387-87B5-4F71D4CC3D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EC4784F-A608-4387-87B5-4F71D4CC3D95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{139DB4F8-B19D-42C1-A106-0CFF6D2BC9B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{139DB4F8-B19D-42C1-A106-0CFF6D2BC9B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{139DB4F8-B19D-42C1-A106-0CFF6D2BC9B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{139DB4F8-B19D-42C1-A106-0CFF6D2BC9B8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E0E83D52-34D2-4802-A42C-152EC3E3A39A}
+	EndGlobalSection
+EndGlobal
