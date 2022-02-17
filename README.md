@@ -4,7 +4,7 @@ __Topic:__ Charity Help Portal
 
 __Team Members:__
 - Prokofiev Oleksandr  (xproko40)
-- Krukhmalov Kostianty (xkrukh00)
+- Krukhmalov Kostiantyn (xkrukh00)
 - Pimenov Danylo       (xpimen00)
 
 # Strategy
