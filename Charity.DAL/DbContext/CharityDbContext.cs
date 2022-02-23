@@ -77,7 +77,7 @@ namespace Charity.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=tcp:sqldb-itu-iis-2021.database.windows.net,1433;Initial Catalog=db-itu-iis-2021;User Id=xproko40@sqldb-itu-iis-2021;Password=YW7-9Xb-suD-jux2");
+            optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog = Charity;MultipleActiveResultSets = True;Integrated Security = True;");
         }
     }
 }
